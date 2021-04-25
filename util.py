@@ -73,11 +73,20 @@ def plot_tensor(tensor_, title, labels):
         labels = [['']] + labels
 
     if tensor_.ndim == 2:
-        plt.imshow(tensor_, vmin=vmin, vmax=vmax)
-        plt.xticks(range(tensor_.shape[1]), labels[1], rotation=45, ha='right')
-        plt.yticks(range(tensor_.shape[0]), labels[0])
-        plt.colorbar()
-        plt.title(title)
+        fix, ax = plt.subplots()
+        ax.imshow(tensor_, vmin=vmin, vmax=vmax)
+        ax.set_xticks(range(tensor_.shape[1]))
+        ax.set_xticklabels(labels[1], rotation=45, ha='right')
+        ax.set_yticks(range(tensor_.shape[0]))
+        ax.set_yticklabels(labels[0])
+        # ax.set_colorbar()
+        ax.set_title(title)
+
+        # Loop over data dimensions and create text annotations.
+        for i in range(tensor_.shape[0]):
+            for j in range(tensor_.shape[1]):
+                ax.text(j, i, f'{tensor_[i,j]:.1}', ha="center", va="center", color="w")
+
         plt.show()
 
     else:
