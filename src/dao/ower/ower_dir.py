@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Tuple
 
+from spacy.lang.en import English
 from torchtext.data import TabularDataset, Field
 from torchtext.vocab import Vocab
 
@@ -98,8 +99,11 @@ class OwerDir(BaseDir):
         :param vectors: Pre-trained word embeddings
         """
 
+        nlp = English()
+        spacy_tokenizer = nlp.tokenizer
+
         def tokenize(text: str) -> List[str]:
-            return text.split()
+            return [token.text for token in spacy_tokenizer(text.strip())]
 
         ent_field = Field(sequential=False, use_vocab=False)
         ent_label_field = Field()

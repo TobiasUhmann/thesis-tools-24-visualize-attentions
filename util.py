@@ -85,7 +85,7 @@ def plot_tensor(tensor_, title, labels):
         # Loop over data dimensions and create text annotations.
         for i in range(tensor_.shape[0]):
             for j in range(tensor_.shape[1]):
-                ax.text(j, i, f'{tensor_[i,j]:.1}', ha="center", va="center", color="w")
+                ax.text(j, i, f'{tensor_[i,j]:.2}', ha="center", va="center", color="w")
 
         plt.show()
 
